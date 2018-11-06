@@ -1,0 +1,17 @@
+Contributions are welcome.
+
+Format:
+- Add book to table of contents
+- Each chapter gets commit beginning with 'Add $BOOK Chapter $CHAPTER_NUM' (ie. Add RESTful Chapter 1)
+- Each book is markdown.
+  - Header is book
+  - Followed by sub header table of contents (should represent all sub headers in notes)
+  - Followed by each chapter
+
+Recommended:
+- VSCode
+  - markdownlint extension (linting files)
+  - Markdown All in One extension (styles markdown in-line, and manages table of contents for your)
+
+Maintainers:
+- JohnWebb4
