@@ -8,6 +8,12 @@
     - [What is REST](#what-is-rest)
     - [REST vs Big Web Services](#rest-vs-big-web-services)
   - [1. General Web](#1-general-web)
+    - [HTTP Protocal Sender](#http-protocal-sender)
+    - [HTTP Protocol Response](#http-protocol-response)
+    - [REST vs SOAP](#rest-vs-soap)
+      - [SOAP: Simple Object Access Protocol](#soap-simple-object-access-protocol)
+      - [REST: Reprentational State Transfer](#rest-reprentational-state-transfer)
+    - [RPC: Remote Procedure Call](#rpc-remote-procedure-call)
   - [2. Intro Web Service Clients](#2-intro-web-service-clients)
   - [3. REST Web Service Clients](#3-rest-web-service-clients)
   - [4. REST Architecture](#4-rest-architecture)
@@ -42,6 +48,44 @@ Goal: What is this about?
 ## 1. General Web
 
 Goal: General Web Services
+
+Programmable web: It runs code
+Web is mainly HTML, XML, JavaScript
+
+### HTTP Protocal Sender
+
+- Method: What you want to do (GET, POST, etc.)
+- Path: Relative to website what endpoint are you hitting
+- Header: Extra metadata you send
+- Body: Any information you are sending
+
+### HTTP Protocol Response
+
+- Code: Server response code (404, etc.)
+- Header: Extra metadata you send
+- Body: Any information you are sending
+
+### REST vs SOAP
+
+#### SOAP: Simple Object Access Protocol
+
+- Async communication protocal
+- Less plumbing (tunnelling, security, etc.)
+- Complex operations work well
+- Can communicate through HTTP, SMTP, etc.
+- XMl Formatting in body
+
+#### REST: Reprentational State Transfer
+
+- You are querying/modifying state on server
+- Handles simple very well
+
+### RPC: Remote Procedure Call
+
+- Format for encoding data
+- Often inside HTTP envelope
+- Often XML-RPC
+- You are running a command on the server
 
 ## 2. Intro Web Service Clients
 
