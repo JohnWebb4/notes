@@ -15,6 +15,10 @@
       - [REST: Reprentational State Transfer](#rest-reprentational-state-transfer)
     - [RPC: Remote Procedure Call](#rpc-remote-procedure-call)
   - [2. Intro Web Service Clients](#2-intro-web-service-clients)
+    - [Considerations for RESTful Services](#considerations-for-restful-services)
+    - [Basic Guidelines](#basic-guidelines)
+    - [Examples](#examples)
+    - [JSON vs XML](#json-vs-xml)
   - [3. REST Web Service Clients](#3-rest-web-service-clients)
   - [4. REST Architecture](#4-rest-architecture)
   - [5. Write REST Endpoints](#5-write-rest-endpoints)
@@ -79,6 +83,7 @@ Web is mainly HTML, XML, JavaScript
 
 - You are querying/modifying state on server
 - Handles simple very well
+- Endpoint describes object: PUT www.url.com/name
 
 ### RPC: Remote Procedure Call
 
@@ -86,10 +91,36 @@ Web is mainly HTML, XML, JavaScript
 - Often inside HTTP envelope
 - Often XML-RPC
 - You are running a command on the server
+- Endpoint describes action: www.url.com/name/rename
 
 ## 2. Intro Web Service Clients
 
 Goal: Introduction to RESTful client?
+
+- Implementing a hybrid RPC is very straightforward
+  - Use HTTP libraries, XML libraries, and create endpoints
+
+### Considerations for RESTful Services
+
+- Supporting proxies (Most libraries by default)
+- Caching common request responses
+- Handling re-directs well
+- Handle headers and authorization
+
+### Basic Guidelines
+
+- Always enfore the param types and number of them
+- User curl to test endpoints
+
+### Examples
+
+- Java, PHP, C# all use SAX style XML parser (Simple API for XML)
+- JavaScript XMLHTTPOnRequest handles it for your
+
+### JSON vs XML
+
+- JSON represents objects well
+- XML / HTML represents documents well
 
 ## 3. REST Web Service Clients
 
