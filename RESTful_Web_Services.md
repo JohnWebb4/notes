@@ -20,6 +20,11 @@
     - [Examples](#examples)
     - [JSON vs XML](#json-vs-xml)
   - [3. REST Web Service Clients](#3-rest-web-service-clients)
+    - [Storage services](#storage-services)
+    - [Response Code](#response-code)
+    - [Authentication](#authentication)
+    - [Signed URIs](#signed-uris)
+    - [Access Control](#access-control)
   - [4. REST Architecture](#4-rest-architecture)
   - [5. Write REST Endpoints](#5-write-rest-endpoints)
   - [6. REST Services](#6-rest-services)
@@ -125,6 +130,37 @@ Goal: Introduction to RESTful client?
 ## 3. REST Web Service Clients
 
 Goal: How do you write a RESTful client?
+
+### Storage services
+
+- Goolgle's Atom Publishing Protocal (schema for storing data)
+- Amazon's Simple Storage Service (store private data / make public)
+  - Supports HTTP, BitTorrent, etc.
+- Most systems allow storing schema-less objects in groups (buckets)
+- Most of the time these groups (buckets) cannot be nested
+
+### Response Code
+
+- 200 OK
+- 3XX Error / Redirect
+- 4xx Bad request
+- 5xx Server error
+
+### Authentication
+
+- Auth header for HTTP authentication
+- If you want a user to only have access to certain items, use key-pair
+
+### Signed URIs
+
+- New unauthenticated URI that performs authenticated action on your behalf (forgot password)
+- Works for limited time
+
+### Access Control
+
+Use filesystem access control (read, write, execute) to allow requests to resource
+
+// TODO: Left off page 74
 
 ## 4. REST Architecture
 
