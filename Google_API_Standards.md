@@ -9,6 +9,13 @@
     - [Example Endpoints](#example-endpoints)
   - [2. Resource Names](#2-resource-names)
     - [Collections](#collections)
+  - [3. Standard Methods](#3-standard-methods)
+    - [LIST](#list)
+    - [SEARCH](#search)
+    - [GET](#get)
+    - [CREATE](#create)
+    - [UPDATE](#update)
+    - [DELETE](#delete)
 
 ## 1. Resource Oriented Design
 
@@ -53,3 +60,88 @@ Goal: What should my endpoint be?
   - Large systems have multiple resource IDs leads to confusion
 - Use display_name for resource ID field
   - Forces a proper name
+
+## 3. Standard Methods
+
+Goal: Understand common methods used by Google in requests
+
+| Type   | Mapping         | Request Body | Response Body         |
+| ------ | --------------- | ------------ | --------------------- |
+| LIST   | Get collection  | N/A          | Resource*             |
+| GET    | Get resouce     | N/A          | Resource*             |
+| Create | POST collection | Resouce      | Resource*             |
+| Update | PUT resouce     | Resouce      | Resouce*              |
+| Delete | DELTE resouce   | N/A          | google.protobuf.Empty |
+
+*Resouces can contain partial data (masked elements)
+
+Any long running operation shoud return reference to operation.
+
+### LIST
+
+Request type: GET
+
+- Search for array of elements with params
+- No request body
+- Array is bounded in size and not cached
+
+See [collection naming](#2-resource-names). (Ex. /messages)
+
+### SEARCH
+
+Request type : GET
+
+- Search for collection of elements with params
+- No request body
+- General version of LIST that is not bounded with size
+
+See [collection naming](#2-resource-names). (Ex. /messages)
+
+### GET
+
+Request type: GET
+
+- Get single element
+- No request body
+- Response body is object
+
+See [item naming](#2-resource-names). (Ex. /message/{id?})
+
+### CREATE
+
+Request type: POST
+
+- Should specify **parent** param for where the object should be created
+- Params specify where to create object
+  - Possible resource ID
+- Request body is object to be created
+- Response if created object
+- Anything in response that cannot be specified by client should be documented as *output only*
+- Should return ALREADY_EXISTS is already exists
+
+See [collection naming](#2-resource-names). (Ex /messages/)
+
+### UPDATE
+
+Request type: PUT or PATCH
+
+- Can change any value except name or parent
+- Request body if object to be updated
+- Return NOT_FOUND if missing
+- Use PATCH if changing a field(s). Use PUT if full update (discouraged).
+  - Full update discouraged since migrations suck
+
+See [item naming](#2-resource-names). (Ex /message/{id?})
+
+### DELETE
+
+Request type: DELETE
+
+- Never rely on response body (has many different response)
+- No request body
+- Returns empty if immediately deleting object
+- Returns long operation if in process of being deleted
+- Returns object with a delete flag if queued for deletion at some point
+
+See [item naming](#2-resource-names). (Ex /message/{id?})
+
