@@ -16,6 +16,9 @@
     - [CREATE](#create)
     - [UPDATE](#update)
     - [DELETE](#delete)
+  - [4. Custom Methods](#4-custom-methods)
+    - [When to use](#when-to-use)
+    - [Common Custom Methods](#common-custom-methods)
 
 ## 1. Resource Oriented Design
 
@@ -145,3 +148,30 @@ Request type: DELETE
 
 See [item naming](#2-resource-names). (Ex /message/{id?})
 
+## 4. Custom Methods
+
+[Standard methods](#3-standard-methods) if creating, updating, or deleting an object
+
+Follow generic mapping template:
+```
+https://service.name/v1/some/resource/name:customVerb
+```
+
+- Use POST for any method with side effects (prefer POST, most versatile)
+- Use GET if no side effects
+
+### When to use
+
+- A very complicated long running action (reboot a virtual machine)
+- When you are performing an action on an already created object (send a drafted email)
+- Custom batch methods
+
+### Common Custom Methods
+
+| Name     | Custom Verb | HTTP Verb | Note                            |
+| -------- | ----------- | --------- | ------------------------------- |
+| Cancel   | `:cancel`   | POST      | Cancel operation                |
+| BatchGet | `:batchGet` | GET       | Get multiple resources          |
+| Move     | `:move`     | POST      | Move from one parent to another |
+| Search   | `:search`   | GET       | Searching a non-list collection |
+| Undelete | `:undelete` | POST      | Undelete resource (< 30 days)   |
