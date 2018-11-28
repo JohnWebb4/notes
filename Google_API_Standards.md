@@ -19,6 +19,7 @@
   - [4. Custom Methods](#4-custom-methods)
     - [When to use](#when-to-use)
     - [Common Custom Methods](#common-custom-methods)
+  - [5. Standard Fields](#5-standard-fields)
 
 ## 1. Resource Oriented Design
 
@@ -175,3 +176,40 @@ https://service.name/v1/some/resource/name:customVerb
 | Move     | `:move`     | POST      | Move from one parent to another |
 | Search   | `:search`   | GET       | Searching a non-list collection |
 | Undelete | `:undelete` | POST      | Undelete resource (< 30 days)   |
+
+## 5. Standard Fields
+
+List of common field definitions
+
+| Name            | Type                | Descriptions                                                                 |
+| --------------- | ------------------- | ---------------------------------------------------------------------------- |
+| name            | string              | Relative resource name                                                       |
+| parent          | string              | LIST/CREATE requests. Relative resource name                                 |
+| create_time     | Timestamp           | Time created                                                                 |
+| update_time     | Timestamp           | Last updated. CREATE/PATCH/DELETE request                                    |
+| delete_time     | Timestamp           | Time deleted, if supports retention                                          |
+| expire_time     | Timestamp           | Time expired                                                                 |
+| start_time      | Timestamp           | Beginning of some time period                                                |
+| end_time        | Timestamp           | End of some time period (reguardless of success)                             |
+| read_time       | Timestamp           | Time last read                                                               |
+| time_zone       | string              | IANA TZ name (ex. America/Los_Angeles)                                       |
+| region_code     | string              | Unicode country/region code (US or 419)                                      |
+| language_code   | string              | BCP-47 language code (en-US)                                                 |
+| mime_type       | string              | IANA Mime Type                                                               |
+| display_name    | string              | Display name of entity                                                       |
+| title           | string              | Formal name as apposed to display name                                       |
+| description     | string              | 1+ paragraphs about entity                                                   |
+| filter          | string              | Standard filter params of LIST method                                        |
+| query           | string              | Query params for SEARCH method. Same style as filter                         |
+| page_token      | string              | Pagination token of LIST                                                     |
+| page_size       | int32               | Pagination size                                                              |
+| total_size      | int32               | Total size of LIST reguardless of page size                                  |
+| next_page_token | string              | Next page token in response                                                  |
+| order_by        | string              | Result order of LIST                                                         |
+| request_id      | string              | Unique string id (detect duplicates)                                         |
+| resume_token    | string              | opague token for resuming a stream                                           |
+| labels          | map<string, string> | Cloud resource label                                                         |
+| deleted         | bool                | Must have if supports `undelete`                                             |
+| show_deleted    | bool                | Must have if supports `undelete` so user can find deleted items              |
+| update_mask     | FieldMask           | UPDATE request for parital updates. Relative to resource not request message |
+| validate_only   | bool                | If true request must be validated before executed                            |
