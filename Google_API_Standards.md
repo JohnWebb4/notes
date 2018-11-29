@@ -20,6 +20,8 @@
     - [When to use](#when-to-use)
     - [Common Custom Methods](#common-custom-methods)
   - [5. Standard Fields](#5-standard-fields)
+  - [6. Errors](#6-errors)
+    - [Should help user understand and resolve issue](#should-help-user-understand-and-resolve-issue)
 
 ## 1. Resource Oriented Design
 
@@ -213,3 +215,28 @@ List of common field definitions
 | show_deleted    | bool                | Must have if supports `undelete` so user can find deleted items              |
 | update_mask     | FieldMask           | UPDATE request for parital updates. Relative to resource not request message |
 | validate_only   | bool                | If true request must be validated before executed                            |
+
+## 6. Errors
+
+protocol agnostic errors
+
+``` js
+{
+  int32 code = 1;
+  string message = "Developer facing human readable message in English. Explain and offer actionable solution"
+  repeated google.protobuf.Any details = { extraDetail1: "", extraDetail2: "" };
+}
+```
+
+ROA design: Few error code types. Describe the affected resource. (Ex. NOT_FOUND)
+
+### Should help user understand and resolve issue
+
+- Assume basic knowledge of your API (casual user)
+- No knowledge of inner workings
+- Such that a casual user can resolve error
+- Keep short. Provide link for more information
+
+Do not blindly propogate errors. Throw `INTERNAL` and describe issue. Do not reveal inner workings of system.
+
+Common Request Errors: `INVALID_ARGUMENT`, `NOT_FOUND`, `UNAUTHENTICATED` and `INTERNAL`
