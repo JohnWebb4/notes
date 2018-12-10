@@ -22,6 +22,12 @@
   - [5. Standard Fields](#5-standard-fields)
   - [6. Errors](#6-errors)
     - [Should help user understand and resolve issue](#should-help-user-understand-and-resolve-issue)
+  - [7. Naming Conventions](#7-naming-conventions)
+    - [General Naming](#general-naming)
+    - [Product Naming](#product-naming)
+    - [Service Naming](#service-naming)
+    - [Package Naming](#package-naming)
+    - [Various Code Namings](#various-code-namings)
 
 ## 1. Resource Oriented Design
 
@@ -240,3 +246,67 @@ ROA design: Few error code types. Describe the affected resource. (Ex. NOT_FOUND
 Do not blindly propogate errors. Throw `INTERNAL` and describe issue. Do not reveal inner workings of system.
 
 Common Request Errors: `INVALID_ARGUMENT`, `NOT_FOUND`, `UNAUTHENTICATED` and `INTERNAL`
+
+## 7. Naming Conventions
+
+### General Naming
+
+All names should be simple and intuitive
+
+Documentation should use formal name (no abbreviations)
+
+Names should not vary across platforms
+
+- API should be correct American English
+- Only use commonly accepted abbreviations (Ex. api, config, id, spec, stats)
+- Reuse verbage where possible (always say remove)
+  - Applies to same name for concept
+- Prefer being short and descriptive over reusing a ton of common words
+- Consider naming across all available platforms
+  - Will this name work in Java, JS, C++, etc.
+
+### Product Naming
+
+Product names should be consistent across API, UI, Docs, ToS, Billing, etc.
+
+| API Name   | Example                            |
+| ---------- | ---------------------------------- |
+| Product    | Google Calendar API                |
+| Service    | calendar.googleapis.com            |
+| Package    | google.calendar.v3                 |
+| Interface  | google.calendar.v3.CalendarService |
+| Source Dir | //google/caledar/v3                |
+| API        | calendar                           |
+
+### Service Naming
+
+Resolve to valid DNS name
+
+Use subdomains `xxx.googleapis.com`
+
+API with multiple services should share common prefix `build.googleapis.com` and `buildresults.googleapis.com`
+
+### Package Naming
+
+Consistent with product and service naming `package google.calendar.com`
+
+Abstract API should use proto package naming consistent with product name.
+
+Java packages **MUST** match standard Java proto package naming `com.google.calendar.v3`
+
+### Various Code Namings
+
+- Collections IDs should be plural lowerCamelCase
+- Interface is an intuitive noun (Does not conflict with keywords, etc.)
+  - Prefix with Api to disambiguate if necessary
+- RPC Method verb nount in UpperCamelCase
+- RPC Message is named after RPC method with Request or Response suffix
+- Enum is UpperCamelCase name
+- Wrappers of object should have inner object name suffixed with value
+- Fields are lower_underscore_snake_case
+  - Adjective before noun
+  - Repeated files must be plural forms
+  - Number value fiels must include unit of measurement
+  - Anything involving time is suffixed with time
+  - Anything involving duration is suffixed with duration
+  - Anything involving date is suffixed with date
